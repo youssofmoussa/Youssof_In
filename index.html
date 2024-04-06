@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SHOP</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: rgb(214, 214, 173);
+      font-family: Arial, sans-serif;
+    }
+
+    /* Header Styles */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px 10%;
+      background: #051129;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 25px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      opacity: 0;
+      animation: slideRight 1s ease forwards;
+    }
+
+    .menu-toggle {
+      display: none;
+    }
+
+    .menu-toggle .bar {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background-color: white;
+      margin: 5px auto;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .navbar a {
+      font-size: 18px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      margin: 0 15px;
+      transition: 0.3s;
+      opacity: 0;
+      animation: slideTop 0.5s ease forwards;
+      animation-delay: calc(0.1s * var(--i));
+    }
+
+    .navbar a:hover {
+      color: #0ef;
+    }
+
+    @media screen and (max-width: 768px) {
+      .logo {
+        opacity: 1;
+      }
+
+      .menu-toggle {
+        display: block;
+        cursor: pointer;
+      }
+
+      .navbar {
+        display: none;
+        flex-direction: column;
+        text-align: center;
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background: #051129;
+        padding: 20px 0;
+        grid-gap: 15px;
+      }
+
+      .navbar.active {
+        display: flex;
+      }
+    }
+
+    @keyframes slideTop {
+      0% {
+        transform: translateY(100px);
+        opacity: 0;
+      }
+
+      100% {
+        transform: translateY(0px);
+        opacity: 1;
+      }
+    }
+
+    /* Main Content Styles */
+    h1 {
+      padding-top: 120px;
+      text-align: center;
+      font-size: 36px;
+    }
+
+    main {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items: flex-start;
+    }
+
+    .container {
+      padding: 20px;
+      background-color: transparent;
+      color: black;
+      box-sizing: border-box;
+      width: 300px;
+      transition: all 0.3s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .container:hover {
+      box-shadow: 0 0 20px black;
+    }
+
+    .container img {
+      width: 200px;
+    }
+
+    .container .title-price,
+    h2 {
+      margin-top: 30px;
+      font-size: 20px;
+      font-family: cursive;
+      text-align: center;
+    }
+
+    .container a {
+      cursor: pointer;
+      background-color: rgb(148, 148, 124);
+      width: 100px;
+      height: 40px;
+      border-radius: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      color: white;
+    }
+
+    .about {
+      font-size: 20px;
+      line-height: 20px;
+      font-family: "india-flower", cursive;
+    }
+
+    .container2 {
+  display: grid;
+  grid-gap: 20px;
+}
+
+@media screen and (min-width: 768px) {
+  .container2 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .container2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+
+    .customer {
+      background-color: beige;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: all .3s ease-in-out;
+      margin: 20px;
+    }
+
+    .customer:hover {
+      box-shadow: 0 0 150px rgb(153, 153, 127);
+    }
+
+    .customer h2 {
+      font-size: 28px;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .customer p {
+      font-size: 18px;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 0;
+    }
+    .customer img {
+      border-radius: 10px;
+    }
+
+    .section {
+      background-color: beige;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      margin: 20px auto;
+      max-width: 90%;
+    }
+
+    .section h2 {
+      font-size: 28px;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .section p {
+      font-size: 18px;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 0;
+    }
+
+    .section p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Product section */
+    #products {
+      text-align: center;
+      margin-top: 50px;
+      font-family: cursive;
+      margin-top: 30px;
+    }
+
+    .product-container {
+  display: grid;
+  grid-gap: 20px;
+}
+
+.product-container {
+  display: grid;
+  grid-gap: 20px;
+}
+.product-container {
+  display: grid;
+  grid-gap: 20px;
+}
+
+@media screen and (min-width: 768px) {
+  .product-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 468px) {
+  .product-container {
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 20px;
+  }
+}
+
+
+
+    .product {
+      padding: 20px;
+      background-color: beige;
+      border-radius: 10px;
+      width: 250px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .product:hover {
+      box-shadow: 0 0 150px rgb(153, 153, 127);
+    }
+
+    .product img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    .product h2 {
+      font-size: 22px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .product p {
+      margin-bottom: 10px;
+    }
+
+    .old-price {
+      color: red;
+      text-decoration: line-through;
+    }
+
+    .new-price {
+      font-weight: bold;
+    }
+
+    .buy-button {
+      background-color: #051129;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .buy-button:hover {
+      background-color: #0ef;
+    }
+
+    /* Footer Styles */
+    footer {
+      background-color: #292929;
+      padding: 20px;
+      text-align: center;
+      font-size: 14px;
+      width: 90%;
+      margin: 0 auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-top: 50px;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .footer-content > div {
+      flex: 1;
+      margin: 10px;
+    }
+
+    .footer-content ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .footer-content li {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    .footer-content li:last-child {
+      margin-right: 0;
+    }
+
+    .footer-content a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 18px;
+    }
+
+    .footer-content p {
+      margin: 10px 0;
+    }
+    h4{
+      margin-bottom: 30px;
+      font-size: 20px;
+      font-family: cursive;
+    }
+    
+    #cart-container{
+      background-color: beige;
+      width: 80%;
+      border-radius: 10px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    
+    .cart-item.added-to-cart {
+  animation: fadeIn 0.5s ease forwards;
+}
+.buy-button {
+      background-color: #051129;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .buy-button:hover {
+      background-color: #0ef;
+    }
+
+    /* Floating Cart Summary Styles */
+    .cart-summary {
+      position: fixed;
+      bottom: 20px;
+      right: 40px;
+      background-color: #333;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      animation: fadeInOut 2s ease;
+      z-index: 999;
+    }
+
+    @keyframes fadeInOut {
+      0% {
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+
+    /* Cart Icon Styles */
+    .cart-icon {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .cart-counter {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background-color: red;
+      color: white;
+      border-radius: 50%;
+      padding: 5px;
+      font-size: 12px;
+    }
+
+
+    .delete {
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .delete:hover {
+      background-color: #c0392b;
+    }
+
+    .calculate {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+
+    .calculate:hover {
+      background-color: #45a049;
+    }
+
+    .total-amount {
+      display: none; /* Initially hide the total amount */
+      margin-top: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #4CAF50;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="#" class="logo">Youssof-In</a>
+
+    <div class="menu-toggle" id="mobile-menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+
+    <nav class="navbar">
+      <a href="#" style="--i: 1" class="active">Home</a>
+      <a href="#about" style="--i: 2" class="active">About</a>
+      <a href="#customer" style="--i: 3" class="active">Customers</a>
+      <a href="#products" style="--i: 4" class="active">Products</a>
+      <a href="#contact" style="--i: 5" class="active">Contact</a>
+    </nav>
+  </header>
+
+  <h1>Welcome To Youssof-In</h1>
+  <br />
+  
+  <h2  id="about" data-number="1">About Us</h2>
+  <br />
+
+  <center>
+    <section class="section">
+      <h2>At Youssof-In</h2>
+      <p>
+        We're more than just a store; we're a destination for quality and
+        style. With a passion for delivering exceptional products and
+        personalized service, we strive to exceed your expectations. Our
+        curated selection offers something for every taste and occasion,
+        ensuring you find exactly what you need. Dedicated to enhancing your
+        shopping experience, we blend innovation with tradition to create a
+        seamless journey from browsing to purchase. Welcome to Youssof-In,
+        where every visit promises delight and discovery.
+      </p>
+    </section>
+  </center>
+  <br><br><br><br>
+  <center>
+    <h4 id="customer">Our Team Members</h4>
+  </center>
+
+  <div class="container2" >
+    <div class="customer" >
+      <div class="img">
+        <img src="customer.jpg" alt="" width="200px" />
+        <div class="title-price">
+          <h2>Mohammad</h2>
+          <p>Youssof-In truly impressed me with their attention to detail and
+            commitment to customer satisfaction. Every visit is a delightful
+            journey of discovery, and I always leave feeling delighted with
+            my purchases. From their curated selection to their seamless
+            shopping experience, Youssof-In sets the standard for excellence
+            in both style and service. I couldn't be happier with my
+            experience!</p>
+        </div>
+      </div>
+    </div>
+    <div class="customer" >
+      <div class="img">
+        <img src="customer.jpg" alt="" width="200px" />
+        <div class="title-price">
+          <h2>Mohammad</h2>
+          <p>Youssof-In truly impressed me with their attention to detail and
+            commitment to customer satisfaction. Every visit is a delightful
+            journey of discovery, and I always leave feeling delighted with
+            my purchases. From their curated selection to their seamless
+            shopping experience, Youssof-In sets the standard for excellence
+            in both style and service. I couldn't be happier with my
+            experience!</p>
+        </div>
+      </div>
+    </div>
+    <div class="customer" >
+      <div class="img">
+        <img src="customer.jpg" alt="" width="200px" />
+        <div class="title-price">
+          <h2>Mohammad</h2>
+          <p>Youssof-In truly impressed me with their attention to detail and
+            commitment to customer satisfaction. Every visit is a delightful
+            journey of discovery, and I always leave feeling delighted with
+            my purchases. From their curated selection to their seamless
+            shopping experience, Youssof-In sets the standard for excellence
+            in both style and service. I couldn't be happier with my
+            experience!</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Repeat the customer div for additional customers -->
+  </div>
+  <br>
+
+  <h2 id="products">Our Products</h2>
+
+  <main>
+    <div class="product-container">
+    <div class="product">
+      <img src="phone.png" alt="Phone" width="200px">
+      <h2>Samsung S23 Ultra 2024</h2>
+      <p>
+        <span class="old-price">$2000</span>
+        <span class="new-price">$1599</span>
+      </p>
+      <button id="btn" onclick="addToCart(event)"  class="buy-button">Buy Now!</button>
+    </div>
+    <div class="product">
+      <img src="phone.png" alt="Phone" width="200px">
+      <h2>Samsung S23 Ultra 2023</h2>
+      <p>
+        <span class="old-price">$1800</span>
+        <span class="new-price">$1400</span>
+      </p>
+      <button id="btn" onclick="addToCart(event)" class="buy-button">Buy Now!</button>
+    </div>
+    <div class="product">
+      <img src="phone.png" alt="Phone" width="200px">
+      <h2>Samsung S23 Ultra 2022</h2>
+      <p>
+        <span class="old-price">$1600</span>
+        <span class="new-price">$1200</span>
+      </p>
+      <button id="btn" onclick="addToCart(event)" class="buy-button">Buy Now!</button>
+    </div>
+    </div>
+    
+
+  </main>
+  <br>
+  
+    <div id="cart-container">
+    <h2>Your Cart</h2>
+    <br>
+    <!-- Cart items will be added dynamically here -->
+    <div class="total-amount" id="total-amount"></div> <!-- Total amount will be displayed here -->
+    <button class="calculate" onclick="calculateTotal()">Calculate Total</button>
+  </div>
+
+  <footer>
+    <div class="footer-content" id="contact">
+      <div>
+        <p>Contact Information:<br>
+        Phone: 123-456-7890<br>
+        Email: youssofmoussa979@gmail.com</p>
+      </div>
+      <div>
+        <p>Store Hours:<br>
+        Monday-Saturday: 9:00 AM - 7:00 PM<br>
+        Sunday: Closed</p>
+      </div>
+      <div>
+        <p>Social Media Links:<br>
+        <ul class="social-icons">
+          <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+          <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+          <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+        </ul>
+        </p>
+      </div>
+      <div>
+        <p>Navigation Links:<br>
+        <a href="#">Home</a> | <a href="#">Products</a> | <a href="#">FAQs</a> | <a href="#">Customer Service</a></p>
+      </div>
+      <div>
+        <p>Privacy Policy and Terms of Service:<br>
+        <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+      </div>
+      <div>
+        <p>Copyright Information:<br>
+        &copy; Youssof-In 2024. All rights reserved.</p>
+      </div>
+      <div>
+        <p>Links to Legal Information:<br>
+        <a href="#">Terms and Conditions</a> | <a href="#">Privacy Policy</a> | <a href="#">Cookie Policy</a></p>
+      </div>
+    </div>
+  </footer>
+    <script>
+    // Function to add item to cart
+    function addToCart(event) {
+      event.preventDefault();
+
+      const productContainer = event.target.closest('.product');
+      const productName = productContainer.querySelector('h2').textContent;
+      const productPrice = parseFloat(productContainer.querySelector('.new-price').textContent.replace('$', ''));
+
+      // Create a new cart item element
+      const cartItem = document.createElement('div');
+      cartItem.classList.add('cart-item');
+      cartItem.innerHTML = `
+        <span>${productName}</span>
+        <span>${productPrice}</span><br>
+        <button class="delete" onclick="removeProduct(event)">Remove</button>
+        <br><br>
+      `;
+
+      const cartContainer = document.getElementById('cart-container');
+      cartContainer.insertBefore(cartItem, cartContainer.querySelector('.total-amount'));
+
+      // Recalculate total amount
+      calculateTotal();
+
+      // Show a floating cart summary
+      showFloatingCartSummary();
+
+      console.log(`Added ${productName} to the cart!`);
+    }
+
+    // Function to remove item from cart
+    function removeProduct(event) {
+      const cartItem = event.target.closest('.cart-item');
+      if (cartItem) {
+        cartItem.remove();
+        // Recalculate total amount
+        calculateTotal();
+      }
+    }
+
+    // Function to calculate total amount
+    // Function to calculate total amount
+function calculateTotal() {
+  const cartItems = document.querySelectorAll('.cart-item span:nth-child(2)');
+  let total = 0;
+
+  if (cartItems.length === 0) {
+    // If no items are in the cart, set total to 0
+    total = 0;
+  } else {
+    // Calculate total amount if items are present
+    cartItems.forEach(item => {
+      total += parseFloat(item.textContent);
+    });
+
+    // Apply taxes, ads, and discount
+    total += 10 + 20 - 5;
+  }
+
+  // Display the total amount in the total-amount div
+  const totalAmountDiv = document.getElementById('total-amount');
+  totalAmountDiv.textContent = `$${total.toFixed(2)}`;
+
+  // Show or hide the total-amount div based on whether items are present
+  totalAmountDiv.style.display = cartItems.length > 0 ? 'block' : 'none';
+}
+
+
+    // Function to show floating cart summary
+    function showFloatingCartSummary() {
+      const cartSummary = document.createElement('div');
+      cartSummary.classList.add('cart-summary');
+      cartSummary.textContent = 'Item added to cart!';
+      document.body.appendChild(cartSummary);
+
+      // Remove the summary after a brief delay
+      setTimeout(() => {
+        cartSummary.remove();
+      }, 2000);
+    }
+
+    // Existing event listener remains unchanged
+    document.addEventListener("DOMContentLoaded", function () {
+      const menuToggle = document.getElementById("mobile-menu");
+      const navbar = document.querySelector(".navbar");
+
+      menuToggle.addEventListener("click", function () {
+        navbar.classList.toggle("active");
+      });
+
+      // Initialize total amount to $0 and hide the total-amount div
+      const totalAmountDiv = document.getElementById('total-amount');
+      totalAmountDiv.textContent = '$0.00';
+      totalAmountDiv.style.display = 'none';
+    });
+  </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
